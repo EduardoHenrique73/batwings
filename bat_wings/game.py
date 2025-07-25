@@ -100,7 +100,7 @@ class Player:
             screen.draw.rect(self.rect, (0,255,0))
     def shoot(self):
         if self.shoot_cooldown == 0 and not self.is_dead:
-            bullets.append(Bullet(self.x+20, self.y, 7, 0))
+            bullets.append(Bullet(self.x+20, self.y-10, 7, 0))  # -10 para alinhar com a boca
             self.shoot_cooldown = 18
 
 class Enemy:
@@ -290,6 +290,9 @@ def on_key_down(key):
             music.play(BG_MUSIC)
         else:
             music.stop()
+    elif state == RUNNING:
+        if key == keys.SPACE or key == keys.Z:
+            player.shoot()
     elif state == GAMEOVER:
         if key == keys.RETURN:
             state = MENU
